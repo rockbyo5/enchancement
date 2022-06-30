@@ -66,4 +66,8 @@ public class ModConfig implements ConfigData {
 		}
 		return allowedEnchantments.contains(string);
 	}
+
+	static {
+		MidnightConfig.init(Enchancement.MOD_ID, ModConfig.class);
+	}
 }
