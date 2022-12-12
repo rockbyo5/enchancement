@@ -19,7 +19,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.village.Merchant;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -75,9 +74,6 @@ public abstract class FishingBobberEntityMixin extends Entity {
 							if (entity instanceof InteractionObserver observer) {
 								observer.onInteractionWith(EntityInteraction.VILLAGER_HURT, owner);
 							}
-							if (entity instanceof Merchant) {
-								stack = ItemStack.EMPTY;
-							}
 							if (entity instanceof EndermanEntity enderman) {
 								enderman.setCarriedBlock(null);
 							}
@@ -91,16 +87,14 @@ public abstract class FishingBobberEntityMixin extends Entity {
 								}
 							}
 						}
-						if (!stack.isEmpty()) {
-							ItemEntity itemEntity = new ItemEntity(world, entity.getX(), entity.getBodyY(0.5), entity.getZ(), stack);
-							itemEntity.setToDefaultPickupDelay();
-							double deltaX = owner.getX() - getX();
-							double deltaY = owner.getY() - getY();
-							double deltaZ = owner.getZ() - getZ();
-							itemEntity.setVelocity(deltaX * 0.1, deltaY * 0.1 + Math.sqrt(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ)) * 0.08, deltaZ * 0.1);
-							world.spawnEntity(itemEntity);
-							living.equipStack(offhand ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND, ItemStack.EMPTY);
-						}
+						ItemEntity itemEntity = new ItemEntity(world, entity.getX(), entity.getBodyY(0.5), entity.getZ(), stack);
+						itemEntity.setToDefaultPickupDelay();
+						double deltaX = owner.getX() - getX();
+						double deltaY = owner.getY() - getY();
+						double deltaZ = owner.getZ() - getZ();
+						itemEntity.setVelocity(deltaX * 0.1, deltaY * 0.1 + Math.sqrt(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ)) * 0.08, deltaZ * 0.1);
+						world.spawnEntity(itemEntity);
+						living.equipStack(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
 					}
 				}
 				ci.cancel();
