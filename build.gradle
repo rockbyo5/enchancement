@@ -36,6 +36,10 @@ repositories {
         url "https://cursemaven.com"
     }
     maven {
+        name "modrinth"
+        url "https://api.modrinth.com/maven"
+    }
+    maven {
         name "jitpack"
         url "https://jitpack.io"
     }
@@ -71,8 +75,8 @@ dependencies {
     modCompileOnly "curse.maven:impaled-478843:${impaled_version}"
     modCompileOnly "com.terraformersmc:modmenu:${mod_menu_version}"
     modRuntimeOnly "com.terraformersmc:modmenu:${mod_menu_version}"
-    modCompileOnly "com.github.CaffeineMC:sodium-fabric:${sodium_version}"
-    modRuntimeOnly "com.github.CaffeineMC:sodium-fabric:${sodium_version}"
+    modCompileOnly "maven.modrinth:sodium:${sodium_version}"
+    modRuntimeOnly "maven.modrinth:sodium:${sodium_version}"
 }
 
 processResources {
